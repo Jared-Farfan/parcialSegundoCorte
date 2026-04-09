@@ -15,8 +15,14 @@ public class ManejadorOfertasSkeleton implements ManejadorOfertasStub{
 
     private FachadaPersistenciaOfertas fpers=null;
 
+    private edu.eci.arsw.exam.MainFrame mainFrame=null;
+
     public void setFachadaPersistenciaOfertas(FachadaPersistenciaOfertas fpers) {
         this.fpers = fpers;
+    }
+
+    public void setMainFrame(edu.eci.arsw.exam.MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
     }
             
     @Override
@@ -32,10 +38,20 @@ public class ManejadorOfertasSkeleton implements ManejadorOfertasStub{
         }
         else{
             int ofertasActuales=fpers.getMapaOfertasRecibidas().get(codprod);
-            fpers.getMapaOfertasRecibidas().put(codprod,ofertasActuales+1);
+            int ofertasNuevas=ofertasActuales+1;
+            fpers.getMapaOfertasRecibidas().put(codprod,ofertasNuevas);
             if (fpers.getMapaMontosAsignados().get(codprod)>monto){
                 fpers.getMapaMontosAsignados().put(codprod, monto);
                 fpers.getMapaOferentesAsignados().put(codprod, codOferente);
+            }
+        }
+
+        Integer totalOfertas = fpers.getMapaOfertasRecibidas().get(codprod);
+        if (totalOfertas != null && totalOfertas == 3 && mainFrame != null) {
+            String ganador = fpers.getMapaOferentesAsignados().get(codprod);
+            Integer montoGanador = fpers.getMapaMontosAsignados().get(codprod);
+            if (ganador != null && montoGanador != null) {
+                mainFrame.appendAcceptedOffer(codprod, ganador, montoGanador);
             }
         }
         

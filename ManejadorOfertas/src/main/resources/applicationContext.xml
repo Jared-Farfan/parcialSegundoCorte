@@ -16,6 +16,7 @@
     
     <bean id="manejadorOfertasSkeleton" class="edu.eci.arsw.exam.remote.ManejadorOfertasSkeleton">
         <property name="fachadaPersistenciaOfertas" ref="fachadaPersistenciaOfertas" />
+        <property name="mainFrame" ref="mainFrame" />
     </bean>
     
     <bean class="org.springframework.remoting.rmi.RmiServiceExporter">

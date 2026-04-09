@@ -22,6 +22,8 @@ public class MainFrame extends javax.swing.JFrame {
     
     private FachadaPersistenciaOfertas fpers=null;
 
+    private javax.swing.JTextArea acceptedOffersArea;
+
     public void setMessageProducer(OffertMessageProducer mproducer) {
         this.mproducer = mproducer;
     }
@@ -37,6 +39,11 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+    }
+
+    public void appendAcceptedOffer(String productCode, String winningBidder, int amount) {
+        String line = String.format("Producto %s - ganador %s - oferta %d%n", productCode, winningBidder, amount);
+        javax.swing.SwingUtilities.invokeLater(() -> acceptedOffersArea.append(line));
     }
 
     
@@ -55,6 +62,7 @@ public class MainFrame extends javax.swing.JFrame {
         descripcionTareaTF = new javax.swing.JTextArea();
         botonEnvio = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
+        acceptedOffersArea = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         codigoTareaTF = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -78,6 +86,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Propuestas aceptadas");
+
+        acceptedOffersArea.setColumns(20);
+        acceptedOffersArea.setRows(5);
+        acceptedOffersArea.setEditable(false);
+        jScrollPane2.setViewportView(acceptedOffersArea);
 
         codigoTareaTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
